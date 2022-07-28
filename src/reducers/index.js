@@ -35,6 +35,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         singleQuestion: action.payload,
+        questionsLoadingStatus: 'idle',
       };
     case 'SET_ANSWERS':
       return {

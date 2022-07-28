@@ -33,3 +33,10 @@ export const setQuestion = (questions) => {
     payload: questions,
   };
 };
+
+export const setAnswers = (answers) => {
+  return {
+    type: 'SET_ANSWERS',
+    payload: answers,
+  };
+};
