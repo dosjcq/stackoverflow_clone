@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
 
-import { QuestionsList } from '../components/questionsList/questionsList';
-import { SearchField } from '../components/searchField/searchField';
+import { QuestionsList } from '../components/questionsList/QuestionsList';
+import { SearchField } from '../components/searchField/SearchField';
 
 const StartPageWrapper = styled.div`
   max-width: 1440px;

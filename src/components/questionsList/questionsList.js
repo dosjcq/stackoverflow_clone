@@ -10,7 +10,7 @@ import {
   questionsFetchingError,
 } from '../../actions';
 
-import { QuestionItem } from '../questionItem/questionItem';
+import { QuestionItem } from '../questionItem/QuestionItem';
 import { Spinner } from '../spinner/Spinner';
 
 const TableHead = styled.thead`
