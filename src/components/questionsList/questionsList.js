@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 
 import { useHttp } from '../../hooks/http.hook';
 import {
@@ -12,8 +13,27 @@ import {
 import { QuestionItem } from '../questionItem/questionItem';
 import { Spinner } from '../spinner/Spinner';
 
+const Table = styled.table`
+  max-width: 1440px;
+  margin: 80px auto 80px auto;
+`;
+
+const TableHead = styled.thead`
+  background-color: aliceblue;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+
+  th {
+    border-right: 1px solid black;
+    padding: 12px 8px;
+  }
+`;
+
 export const QuestionsList = () => {
-  const { questions, questionsLoadingStatus } = useSelector((state) => state);
+  const { questions, questionsLoadingStatus, searchQuery } = useSelector(
+    (state) => state,
+  );
   const dispatch = useDispatch();
   const { request } = useHttp();
 
@@ -49,7 +69,6 @@ export const QuestionsList = () => {
 
     return arr.map(({ question_id, tags, owner, answer_count, title }) => {
       return (
-        // <table>
         <QuestionItem
           key={question_id}
           author={owner.display_name}
@@ -57,24 +76,25 @@ export const QuestionsList = () => {
           numOfAnswers={answer_count}
           tags={tags}
         />
-        // </table>
       );
-      // return <h5>{question_id}</h5>;
     });
   };
 
   const elements = renderedQuestionsList(questions);
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Автор вопроса</th>
-          <th>Тема</th>
-          <th>Количество ответов</th>
-          <th>Тэги</th>
-        </tr>
-      </thead>
-      <tbody>{elements}</tbody>
-    </table>
+    <div>
+      <h2>{searchQuery ? 'По вашему запросу найдено' : 'Последние вопросы'}</h2>
+      <Table>
+        <TableHead>
+          <tr>
+            <th>Автор вопроса</th>
+            <th>Тема</th>
+            <th>Количество ответов</th>
+            <th>Тэги</th>
+          </tr>
+        </TableHead>
+        <tbody>{elements}</tbody>
+      </Table>
+    </div>
   );
 };
