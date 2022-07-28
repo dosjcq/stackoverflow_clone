@@ -1,7 +1,13 @@
-import './App.css';
+import { QuestionsList } from '../questionsList/questionsList';
 
 function App() {
-  return <div className='App'></div>;
+  return (
+    <main className='App'>
+      <div className='content'>
+        <QuestionsList />
+      </div>
+    </main>
+  );
 }
 
 export default App;
