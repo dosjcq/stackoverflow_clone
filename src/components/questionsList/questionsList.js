@@ -9,6 +9,7 @@ import {
   questionsFetchingError,
 } from '../../actions';
 
+import { QuestionItem } from '../questionItem/questionItem';
 import { Spinner } from '../spinner/Spinner';
 
 export const QuestionsList = () => {
@@ -30,19 +31,50 @@ export const QuestionsList = () => {
   if (questionsLoadingStatus === 'loading') {
     return <Spinner />;
   } else if (questionsLoadingStatus === 'error') {
-    return <h5>Ошибка загрузки</h5>;
+    return (
+      <tr>
+        <td>Ошибка загрузки</td>
+      </tr>
+    );
   }
 
   const renderedQuestionsList = (arr) => {
     if (arr.length === 0) {
-      return <h5>Вопросов нет</h5>;
+      return (
+        <tr>
+          <td>Вопросов нет</td>
+        </tr>
+      );
     }
 
-    return arr.map(({ question_id, ...props }) => {
-      return <h5 key={question_id}>{question_id}</h5>;
+    return arr.map(({ question_id, tags, owner, answer_count, title }) => {
+      return (
+        // <table>
+        <QuestionItem
+          key={question_id}
+          author={owner.display_name}
+          theme={title}
+          numOfAnswers={answer_count}
+          tags={tags}
+        />
+        // </table>
+      );
+      // return <h5>{question_id}</h5>;
     });
   };
 
   const elements = renderedQuestionsList(questions);
-  return <div>{elements}</div>;
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>Автор вопроса</th>
+          <th>Тема</th>
+          <th>Количество ответов</th>
+          <th>Тэги</th>
+        </tr>
+      </thead>
+      <tbody>{elements}</tbody>
+    </table>
+  );
 };
