@@ -1,7 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 import { useHttp } from '../../hooks/http.hook';
@@ -14,27 +13,7 @@ import {
 import { QuestionItem } from '../questionItem/QuestionItem';
 import { Spinner } from '../spinner/Spinner';
 
-const TableHead = styled.thead`
-  background-color: aliceblue;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-
-  th {
-    border-right: 1px solid black;
-    padding: 12px 8px;
-  }
-`;
-
-const TableRow = styled.tr`
-  border: 1px solid black;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-
-  &:hover {
-    background-color: antiquewhite;
-  }
-`;
+import { TableHead, TableRow } from './QuestionsList.styles';
 
 export const QuestionsList = () => {
   const { questions, questionsLoadingStatus, searchQuery } = useSelector(
