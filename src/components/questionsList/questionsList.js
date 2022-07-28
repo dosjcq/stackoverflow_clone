@@ -13,11 +13,6 @@ import {
 import { QuestionItem } from '../questionItem/questionItem';
 import { Spinner } from '../spinner/Spinner';
 
-const Table = styled.table`
-  max-width: 1440px;
-  margin: 80px auto 80px auto;
-`;
-
 const TableHead = styled.thead`
   background-color: aliceblue;
   border-top: 1px solid black;
@@ -31,9 +26,7 @@ const TableHead = styled.thead`
 `;
 
 export const QuestionsList = () => {
-  const { questions, questionsLoadingStatus, searchQuery } = useSelector(
-    (state) => state,
-  );
+  const { questions, questionsLoadingStatus } = useSelector((state) => state);
   const dispatch = useDispatch();
   const { request } = useHttp();
 
@@ -83,8 +76,7 @@ export const QuestionsList = () => {
   const elements = renderedQuestionsList(questions);
   return (
     <div>
-      <h2>{searchQuery ? 'По вашему запросу найдено' : 'Последние вопросы'}</h2>
-      <Table>
+      <table>
         <TableHead>
           <tr>
             <th>Автор вопроса</th>
@@ -94,7 +86,7 @@ export const QuestionsList = () => {
           </tr>
         </TableHead>
         <tbody>{elements}</tbody>
-      </Table>
+      </table>
     </div>
   );
 };

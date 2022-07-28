@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import { useHttp } from '../../hooks/http.hook';
@@ -31,8 +31,17 @@ const SearchButton = styled.button`
   height: 42px;
   border: none;
   background: #7ba7ab;
+  border: 2px solid #7ba7ab;
+
   border-radius: 0 5px 5px 0;
+  color: white;
   cursor: pointer;
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    background: lightgray;
+    color: lightslategrey;
+  }
 `;
 
 export const SearchField = () => {

@@ -1,15 +1,9 @@
-import { QuestionsList } from '../questionsList/questionsList';
-import { SearchField } from '../searchField/searchField';
+import { StartPage } from '../../pages/startPage';
 
 function App() {
   return (
     <main className='App'>
-      <div className='search-field'>
-        <SearchField />
-      </div>
-      <div className='content'>
-        <QuestionsList />
-      </div>
+      <StartPage />
     </main>
   );
 }
