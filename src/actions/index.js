@@ -16,3 +16,13 @@ export const questionsFetchingError = () => {
     type: 'QUESTIONS_FETCHING_ERROR',
   };
 };
+
+export const findQuestions = ({ questions, searchQuery }) => {
+  return {
+    type: 'FIND_QUESTIONS',
+    payload: {
+      questions,
+      searchQuery,
+    },
+  };
+};

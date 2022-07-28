@@ -22,6 +22,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         questionsLoadingStatus: 'error',
       };
+    case 'FIND_QUESTIONS':
+      return {
+        ...state,
+        questions: action.payload.questions,
+        searchQuery: action.payload.searchQuery,
+        questionsLoadingStatus: 'idle',
+      };
     default:
       return state;
   }
