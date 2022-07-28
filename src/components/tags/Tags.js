@@ -23,7 +23,7 @@ export const Tags = ({ tags }) => {
 
     return arr.map((el) => {
       return (
-        <Tag>
+        <Tag key={el}>
           <p>{el}</p>
         </Tag>
       );

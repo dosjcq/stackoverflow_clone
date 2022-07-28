@@ -26,3 +26,10 @@ export const findQuestions = ({ questions, searchQuery }) => {
     },
   };
 };
+
+export const setQuestion = (questions) => {
+  return {
+    type: 'SET_QUESTIONS',
+    payload: questions,
+  };
+};

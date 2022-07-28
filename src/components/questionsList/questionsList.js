@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 import { useHttp } from '../../hooks/http.hook';
 import {
@@ -25,12 +26,34 @@ const TableHead = styled.thead`
   }
 `;
 
+const TableRow = styled.tr`
+  border: 1px solid black;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    background-color: antiquewhite;
+  }
+`;
+
 export const QuestionsList = () => {
-  const { questions, questionsLoadingStatus } = useSelector((state) => state);
+  const { questions, questionsLoadingStatus, searchQuery } = useSelector(
+    (state) => state,
+  );
   const dispatch = useDispatch();
   const { request } = useHttp();
 
+  const navigate = useNavigate();
+
+  // const openQuestion = (id) => {
+  //   navigate(`/question/${id}`);
+  // };
+
   useEffect(() => {
+    if (searchQuery) {
+      return;
+    }
+
     dispatch(questionsFetching());
     request(
       'https://api.stackexchange.com/2.3/questions?page=1&pagesize=10&order=desc&sort=activity&site=stackoverflow',
@@ -44,11 +67,7 @@ export const QuestionsList = () => {
   if (questionsLoadingStatus === 'loading') {
     return <Spinner />;
   } else if (questionsLoadingStatus === 'error') {
-    return (
-      <tr>
-        <td>Ошибка загрузки</td>
-      </tr>
-    );
+    return <h2>Ошибка загрузки</h2>;
   }
 
   const renderedQuestionsList = (arr) => {
@@ -60,17 +79,19 @@ export const QuestionsList = () => {
       );
     }
 
-    return arr.map(({ question_id, tags, owner, answer_count, title }) => {
-      return (
+    return arr.map(({ question_id, tags, owner, answer_count, title }) => (
+      <TableRow
+        onClick={() => navigate(`/question/${question_id}`)}
+        key={question_id}
+      >
         <QuestionItem
-          key={question_id}
           author={owner.display_name}
           theme={title}
           numOfAnswers={answer_count}
           tags={tags}
         />
-      );
-    });
+      </TableRow>
+    ));
   };
 
   const elements = renderedQuestionsList(questions);

@@ -22,7 +22,7 @@ export const StartPage = () => {
 
   return (
     <StartPageWrapper>
-      <SearchField />
+      <SearchField query={searchQuery} />
       <QuestionsHeading>
         {searchQuery ? 'По вашему запросу найдено:' : 'Последние вопросы:'}
       </QuestionsHeading>

@@ -2,6 +2,8 @@ const initialState = {
   questions: [],
   questionsLoadingStatus: 'idle',
   searchQuery: '',
+  singleQuestion: [],
+  answers: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -28,6 +30,16 @@ const reducer = (state = initialState, action) => {
         questions: action.payload.questions,
         searchQuery: action.payload.searchQuery,
         questionsLoadingStatus: 'idle',
+      };
+    case 'SET_QUESTIONS':
+      return {
+        ...state,
+        singleQuestion: action.payload,
+      };
+    case 'SET_ANSWERS':
+      return {
+        ...state,
+        answers: action.payload,
       };
     default:
       return state;

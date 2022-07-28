@@ -44,8 +44,8 @@ const SearchButton = styled.button`
   }
 `;
 
-export const SearchField = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+export const SearchField = ({ query }) => {
+  const [searchQuery, setSearchQuery] = useState(query);
 
   const dispatch = useDispatch();
   const { request } = useHttp();
@@ -66,6 +66,7 @@ export const SearchField = () => {
     <SearchForm onSubmit={onSubmitHandler}>
       <SearchInput
         name='s'
+        value={searchQuery}
         placeholder='Искать здесь...'
         type='search'
         onChange={(e) => setSearchQuery(e.target.value)}
