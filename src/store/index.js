@@ -1,9 +1,10 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
-import reducer from '../reducers';
+import questionsReducer from '../reducers/questions';
+import answerReducer from '../reducers/answers';
 
 const store = createStore(
-  reducer,
+  combineReducers({ questionsReducer, answerReducer }),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 

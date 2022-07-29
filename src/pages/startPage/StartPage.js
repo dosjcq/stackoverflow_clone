@@ -8,7 +8,7 @@ import { SearchField } from '../../components/searchField/SearchField';
 import { StartPageWrapper, QuestionsHeading } from './StartPage.styles';
 
 export const StartPage = () => {
-  const { searchQuery } = useSelector((state) => state);
+  const { searchQuery } = useSelector((state) => state.questionsReducer);
 
   return (
     <StartPageWrapper>

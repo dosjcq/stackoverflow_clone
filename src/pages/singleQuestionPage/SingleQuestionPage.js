@@ -17,13 +17,14 @@ import {
   HTMLContent,
   QuestionPageWrapper,
 } from './SingleQuestionPage.styles';
+import { Spinner } from '../../components/spinner/Spinner';
 
 export const SingleQuestionPage = () => {
   const { questionId } = useParams();
 
   const { request } = useHttp();
 
-  const { singleQuestion } = useSelector((state) => state);
+  const { singleQuestion } = useSelector((state) => state.questionsReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,24 +41,29 @@ export const SingleQuestionPage = () => {
       `&order=desc&sort=activity&filter=withbody&site=stackoverflow`,
     )
       .then((data) => dispatch(setAnswers(data.items)))
-      .catch((err) => questionsFetchingError());
+      .catch((err) => {
+        console.log(err);
+        questionsFetchingError();
+      });
   }, [questionId, dispatch, request]);
 
-  // const { owner, title, tags, body } = singleQuestion[0];
-  // console.log(owner);
-  console.log(singleQuestion[0]);
+  const displayedContent = singleQuestion[0] ? (
+    <AnswerWrapper>
+      <h6>{singleQuestion[0].owner.display_name}</h6>
+      <h2>{singleQuestion[0].title}</h2>
+      <Tags tags={singleQuestion[0].tags} />
+      <HTMLContent
+        dangerouslySetInnerHTML={{ __html: singleQuestion[0].body }}
+      ></HTMLContent>
+    </AnswerWrapper>
+  ) : (
+    <Spinner />
+  );
 
   return (
     <QuestionPageWrapper>
       <Link to='/'>Назад</Link>
-      <AnswerWrapper>
-        <h6>{singleQuestion[0].owner.display_name}</h6>
-        <h2>{singleQuestion[0].title}</h2>
-        <Tags tags={singleQuestion[0].tags} />
-        <HTMLContent
-          dangerouslySetInnerHTML={{ __html: singleQuestion[0].body }}
-        ></HTMLContent>
-      </AnswerWrapper>
+      {displayedContent}
     </QuestionPageWrapper>
   );
 };

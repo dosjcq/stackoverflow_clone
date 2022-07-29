@@ -18,11 +18,13 @@ import { TableHead, TableRow } from './QuestionsList.styles';
 
 export const QuestionsList = memo(() => {
   const filtredQuestions = useSelector((state) => {
-    if (state.activeFilter === 'all') {
-      return state.questions;
+    if (state.questionsReducer.activeFilter === 'all') {
+      return state.questionsReducer.questions;
     } else {
-      return state.questions.sort(
-        (a, b) => b[state.activeFilter] - a[state.activeFilter],
+      return state.questionsReducer.questions.sort(
+        (a, b) =>
+          b[state.questionsReducer.activeFilter] -
+          a[state.questionsReducer.activeFilter],
       );
     }
   });
@@ -42,8 +44,14 @@ export const QuestionsList = memo(() => {
       'questions?',
       '&page=1&pagesize=10&order=desc&sort=activity&site=stackoverflow',
     )
-      .then((data) => dispatch(questionsFetched(data.items)))
-      .catch((err) => questionsFetchingError());
+      .then((data) => {
+        console.log(data, 'data');
+        dispatch(questionsFetched(data.items));
+      })
+      .catch((err) => {
+        console.log(err);
+        questionsFetchingError();
+      });
 
     // eslint-disable-next-line
   }, []);
