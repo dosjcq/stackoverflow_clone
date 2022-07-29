@@ -16,6 +16,8 @@ import {
   AnswerWrapper,
   HTMLContent,
   QuestionPageWrapper,
+  AnswerItem,
+  AnswersList,
 } from './SingleQuestionPage.styles';
 import { Spinner } from '../../components/spinner/Spinner';
 
@@ -25,7 +27,10 @@ export const SingleQuestionPage = () => {
   const { request } = useHttp();
 
   const { singleQuestion } = useSelector((state) => state.questionsReducer);
+  const { answers } = useSelector((state) => state.answerReducer);
   const dispatch = useDispatch();
+
+  console.log(answers);
 
   useEffect(() => {
     dispatch(questionsFetching());
@@ -60,10 +65,25 @@ export const SingleQuestionPage = () => {
     <Spinner />
   );
 
+  const displayedAnswers = !!answers ? (
+    <AnswersList>
+      <h2>Ответы:</h2>
+      {answers.map(({ owner, answer_id, body }) => (
+        <AnswerItem key={answer_id}>
+          <h6>{owner.display_name}</h6>
+          <div dangerouslySetInnerHTML={{ __html: body }}></div>
+        </AnswerItem>
+      ))}
+    </AnswersList>
+  ) : (
+    <h2>Отвтетов пока нет</h2>
+  );
+
   return (
     <QuestionPageWrapper>
       <Link to='/'>Назад</Link>
       {displayedContent}
+      {displayedAnswers}
     </QuestionPageWrapper>
   );
 };

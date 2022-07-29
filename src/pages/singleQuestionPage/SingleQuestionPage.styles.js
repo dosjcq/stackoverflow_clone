@@ -44,5 +44,36 @@ export const HTMLContent = styled.div`
     padding: 12px 0;
     margin: 0 24px;
     text-align: center;
+    overflow: auto;
+  }
+`;
+
+export const AnswersList = styled.div`
+  margin-top: 60px;
+
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+`;
+
+export const AnswerItem = styled(HTMLContent)`
+  margin-top: 20px;
+  background-color: #7ba7ab;
+  padding: 12px 20px;
+  border-radius: 10px;
+  color: #fff;
+
+  div {
+    margin-top: 20px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  h6 {
+    font-size: 20px;
+    font-weight: bold;
   }
 `;

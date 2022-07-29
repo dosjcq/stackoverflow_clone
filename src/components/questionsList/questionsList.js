@@ -21,7 +21,8 @@ export const QuestionsList = memo(() => {
     if (state.questionsReducer.activeFilter === 'all') {
       return state.questionsReducer.questions;
     } else {
-      return state.questionsReducer.questions.sort(
+      const questionsCopy = [...state.questionsReducer.questions];
+      return questionsCopy.sort(
         (a, b) =>
           b[state.questionsReducer.activeFilter] -
           a[state.questionsReducer.activeFilter],
@@ -45,7 +46,6 @@ export const QuestionsList = memo(() => {
       '&page=1&pagesize=10&order=desc&sort=activity&site=stackoverflow',
     )
       .then((data) => {
-        console.log(data, 'data');
         dispatch(questionsFetched(data.items));
       })
       .catch((err) => {

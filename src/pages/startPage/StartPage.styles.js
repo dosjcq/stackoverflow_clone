@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 
 export const StartPageWrapper = styled.div`
-  max-width: 1440px;
   margin: 80px auto 80px auto;
+  padding: 0 12px;
+
+  @media (max-width: 600px) {
+    margin: 40px 0;
+    padding: 0 8px;
+  }
 `;
 
 export const QuestionsHeading = styled.h2`
