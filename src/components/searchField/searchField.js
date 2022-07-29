@@ -17,7 +17,8 @@ export const SearchField = ({ query }) => {
     e.preventDefault();
 
     request(
-      `https://api.stackexchange.com/2.3/search/advanced?key=c4aTQICEmGaJtaP0bKpx6A((&order=desc&sort=activity&q=${searchQuery}&filter=withbody&site=stackoverflow`,
+      `search/advanced?`,
+      `&order=desc&sort=activity&q=${searchQuery}&filter=withbody&site=stackoverflow`,
     )
       .then((res) =>
         dispatch(findQuestions({ questions: res.items, searchQuery })),

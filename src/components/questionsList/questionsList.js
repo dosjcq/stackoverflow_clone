@@ -35,7 +35,8 @@ export const QuestionsList = () => {
 
     dispatch(questionsFetching());
     request(
-      'https://api.stackexchange.com/2.3/questions?page=1&pagesize=10&order=desc&sort=activity&site=stackoverflow',
+      'questions?',
+      '&page=1&pagesize=10&order=desc&sort=activity&site=stackoverflow',
     )
       .then((data) => dispatch(questionsFetched(data.items)))
       .catch((err) => questionsFetchingError());

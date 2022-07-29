@@ -29,13 +29,15 @@ export const SingleQuestionPage = () => {
   useEffect(() => {
     dispatch(questionsFetching());
     request(
-      `https://api.stackexchange.com/2.3/questions/${questionId}?key=c4aTQICEmGaJtaP0bKpx6A((&order=desc&sort=activity&filter=withbody&site=stackoverflow`,
+      `questions/${questionId}?`,
+      `&order=desc&sort=activity&filter=withbody&site=stackoverflow`,
     )
       .then((data) => dispatch(setQuestion(data.items)))
       .catch((err) => questionsFetchingError());
 
     request(
-      `https://api.stackexchange.com/2.3/questions/${questionId}/answers?key=c4aTQICEmGaJtaP0bKpx6A((&order=desc&sort=activity&filter=withbody&site=stackoverflow`,
+      `questions/${questionId}/answers?`,
+      `&order=desc&sort=activity&filter=withbody&site=stackoverflow`,
     )
       .then((data) => dispatch(setAnswers(data.items)))
       .catch((err) => questionsFetchingError());
