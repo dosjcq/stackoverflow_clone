@@ -8,6 +8,7 @@ import {
   questionsFetching,
   questionsFetched,
   questionsFetchingError,
+  activeFilterChanged,
 } from '../../actions';
 
 import { QuestionItem } from '../questionItem/QuestionItem';
@@ -16,9 +17,12 @@ import { Spinner } from '../spinner/Spinner';
 import { TableHead, TableRow } from './QuestionsList.styles';
 
 export const QuestionsList = () => {
-  const { questions, questionsLoadingStatus, searchQuery } = useSelector(
-    (state) => state,
-  );
+  const {
+    filtredQuestions,
+    questionsLoadingStatus,
+    searchQuery,
+    activeFilter,
+  } = useSelector((state) => state);
   const dispatch = useDispatch();
   const { request } = useHttp();
 
@@ -43,6 +47,10 @@ export const QuestionsList = () => {
 
     // eslint-disable-next-line
   }, []);
+
+  const handleFilter = (e) => {
+    dispatch(activeFilterChanged(e.target.value));
+  };
 
   if (questionsLoadingStatus === 'loading') {
     return <Spinner />;
@@ -74,9 +82,16 @@ export const QuestionsList = () => {
     ));
   };
 
-  const elements = renderedQuestionsList(questions);
+  const elements = renderedQuestionsList(filtredQuestions);
   return (
     <div>
+      <span>Фильтры</span>
+      <select value={activeFilter} onChange={handleFilter}>
+        <option value='all'>По умолчанию</option>
+        <option value='creation_date'>По дате создания</option>
+        <option value='view_count'>По количеству просмотров</option>
+        <option value='answer_count'>По количеству ответов</option>
+      </select>
       <table>
         <TableHead>
           <tr>

@@ -40,3 +40,10 @@ export const setAnswers = (answers) => {
     payload: answers,
   };
 };
+
+export const activeFilterChanged = (filter) => {
+  return {
+    type: 'ACTIVE_FILTER_CHANGED',
+    payload: filter,
+  };
+};
