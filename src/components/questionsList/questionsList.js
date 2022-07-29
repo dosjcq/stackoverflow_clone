@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,26 +16,26 @@ import { Spinner } from '../spinner/Spinner';
 
 import { TableHead, TableRow } from './QuestionsList.styles';
 
-export const QuestionsList = () => {
-  const {
-    filtredQuestions,
-    questionsLoadingStatus,
-    searchQuery,
-    activeFilter,
-  } = useSelector((state) => state);
+export const QuestionsList = memo(() => {
+  const filtredQuestions = useSelector((state) => {
+    if (state.activeFilter === 'all') {
+      return state.questions;
+    } else {
+      return state.questions.sort(
+        (a, b) => b[state.activeFilter] - a[state.activeFilter],
+      );
+    }
+  });
+  const { questionsLoadingStatus, searchQuery, activeFilter } = useSelector(
+    (state) => state,
+  );
   const dispatch = useDispatch();
   const { request } = useHttp();
 
   const navigate = useNavigate();
 
-  // const openQuestion = (id) => {
-  //   navigate(`/question/${id}`);
-  // };
-
   useEffect(() => {
-    if (searchQuery) {
-      return;
-    }
+    if (searchQuery) return;
 
     dispatch(questionsFetching());
     request(
@@ -105,4 +105,4 @@ export const QuestionsList = () => {
       </table>
     </div>
   );
-};
+});

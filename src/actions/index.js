@@ -29,7 +29,7 @@ export const findQuestions = ({ questions, searchQuery }) => {
 
 export const setQuestion = (questions) => {
   return {
-    type: 'SET_QUESTIONS',
+    type: 'SET_QUESTION',
     payload: questions,
   };
 };

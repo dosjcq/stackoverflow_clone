@@ -1,6 +1,5 @@
 const initialState = {
   questions: [],
-  filtredQuestions: [],
   activeFilter: [],
   questionsLoadingStatus: 'idle',
   searchQuery: '',
@@ -20,13 +19,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         questions: action.payload,
         questionsLoadingStatus: 'idle',
-        filtredQuestions:
-          state.activeFilter === 'all'
-            ? action.payload
-            : action.payload.sort(
-                (prev, next) =>
-                  prev[state.activeFilter] - next[state.activeFilter],
-              ),
       };
     case 'QUESTIONS_FETCHING_ERROR':
       return {
@@ -37,12 +29,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         questions: action.payload.questions,
-        filtredQuestions: action.payload.questions,
         activeFilter: 'all',
         searchQuery: action.payload.searchQuery,
         questionsLoadingStatus: 'idle',
       };
-    case 'SET_QUESTIONS':
+    case 'SET_QUESTION':
       return {
         ...state,
         singleQuestion: action.payload,
@@ -57,12 +48,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         activeFilter: action.payload,
-        filtredQuestions:
-          action.payload === 'all'
-            ? state.questions
-            : state.questions.sort(
-                (a, b) => b[action.payload] - a[action.payload],
-              ),
       };
     default:
       return state;
